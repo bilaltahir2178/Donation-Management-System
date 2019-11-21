@@ -9,6 +9,8 @@ package project;
  *
  * @author bilal
  */
-public class Project {
-    
+public class Main {
+    public static void main(String[] args){
+        
+    }
 }

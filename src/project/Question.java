@@ -9,6 +9,6 @@ package project;
  *
  * @author bilal
  */
-public class Project {
+public class Question {
     
 }
