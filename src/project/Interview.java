@@ -5,10 +5,20 @@
  */
 package project;
 
+import java.util.ArrayList;
+
 /**
  *
  * @author bilal
  */
 public class Interview {
+    ArrayList<Question> questions;
     
+    Interview(){
+        questions=new ArrayList<>();
+    }
+    
+    void addQuestion(Question question){
+        this.questions.add(question);
+    }
 }
