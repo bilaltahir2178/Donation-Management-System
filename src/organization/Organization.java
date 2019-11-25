@@ -1,16 +1,12 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-package project;
+package organization;
 
+import funds.Funds;
+import people.Donor;
+import people.Founder;
 import java.util.ArrayList;
+import project.Pledge;
+import project.Project;
 
-/**
- *
- * @author bilal
- */
 public class Organization {
     private String name;
     private ArrayList<Founder> founders;
