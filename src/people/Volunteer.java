@@ -1,6 +1,5 @@
 package people;
 
-import java.sql.Time;
 import project.TimeSlot;
 
 public class Volunteer extends Person {
@@ -22,11 +21,11 @@ public class Volunteer extends Person {
         this.totalWorkingHours = workingHours;
     }
 
-    void setAvailibility(String name, String sHour, String sMinute, String eHour, String eMinute, Time end) {
+    public void setAvailibility(String name, String sHour, String sMinute, String eHour, String eMinute) {
         this.availability = new TimeSlot(name, calculateTime(sHour, sMinute), calculateTime(eHour, eMinute));
     }
 
-    void workingTime(String name, String sHour, String sMinute, String eHour, String eMinute, Time end) {
+    public void workingTime(String name, String sHour, String sMinute, String eHour, String eMinute) {
         this.workingTime = new TimeSlot(name, calculateTime(sHour, sMinute), calculateTime(eHour, eMinute));
     }
 }
