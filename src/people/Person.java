@@ -1,17 +1,25 @@
 package people;
 
 public class Person {
+
     protected String mName;
     protected int mAge;
     protected String mCnic;
     protected String mAddress;
 
-    public String getName() {
-        return mName;
+    public Person(String name, int age, String cnic, String address) {
+        this.mName = name;
+        this.mAge = age;
+        this.mCnic = cnic;
+        this.mAddress = address;
     }
 
     public void setName(String name) {
         this.mName = name;
+    }
+
+    public String getName() {
+        return mName;
     }
 
     public int getAge() {

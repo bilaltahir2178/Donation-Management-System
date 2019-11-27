@@ -1,7 +1,8 @@
 package project;
 
 public class People extends Project {
-    People(int id, String description){
-        super(id, description);
+
+    People(int id, String name) {
+        super(id, name);
     }
 }

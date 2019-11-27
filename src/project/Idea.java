@@ -1,7 +1,11 @@
 package project;
 
 public class Idea extends Project {
-        Idea(int id, String description){
-        super(id, description);
+
+    private String description;
+    
+    Idea(int id, String name, String description) {
+        super(id, name);
+        this.description=description;
     }
 }
