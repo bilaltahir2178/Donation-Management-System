@@ -7,6 +7,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.List;
 import people.Donor;
 import people.Subject;
 import people.Volunteer;
@@ -43,27 +44,141 @@ public class DbConnectivity {
         }
         return names;
     }
-    
-        public int addProject(Project p) {
-        int xx = 0;
+
+    public int addProject(Project p) {
         try {
-            xx = checkname(p.name);
-            if (xx == 0) {
-                updatevolunteer(p.manager.mName);
-                CallableStatement Stmt = connection.prepareCall("{call addProject(?,?,?,?)}");
-                Stmt.setString(1, p.name);
-                Stmt.setString(2, p.description);
-                Stmt.setString(3, p.manager.mName);
-                Stmt.setInt(4, p.budget);
-                Stmt.executeUpdate();
-                Stmt.close();
+            ResultSet rs = statement.executeQuery("SELECT COUNT([Project].[Name]) FROM [Project] WHERE [Project].[Name] = " + p.getName());
+            rs.next();
+            int count = rs.getInt(1);
+            if(count == 0) {
+                String sqlStatement = "INSERT INTO [Project](ID, Name, Description, ManagerID, Budget) VALUES (";
+                sqlStatement += p.getId() + ", ";
+                sqlStatement += "'" + p.getName() + "'" + ", ";
+                sqlStatement += "'" + p.getDescription() + "'" + ", ";
+                sqlStatement += p.getManager().mId + ", ";
+                sqlStatement += p.getBudget() + ");";
+                statement.executeUpdate(sqlStatement);
+                return 1;
             }
-        } catch (SQLException e) {
-            e.printStackTrace();
+            else
+                return 0;
         }
-        return xx;
+        catch (Exception e) {
+            System.out.println(e);
+            return 0;
+        }
     }
 
+    public int allocateTeam(List<Volunteer> volunteers, int teamID, int teamLeadId) {
+        try {
+            ResultSet rs = statement.executeQuery("SELECT COUNT([Team].[ID]) FROM [Team] WHERE [Team].[ID] = " + teamID);
+            rs.next();
+            int count = rs.getInt(1);
+            if(count == 0) {
+                for(int i = 0; i < volunteers.size(); i++) {
+                    String sqlStatement = "INSERT INTO [Team] VALUES (";
+                    sqlStatement += teamID + ", ";
+                    sqlStatement += volunteers.get(i).mId + ", ";
+                    if(teamLeadId == volunteers.get(i).mId)
+                        sqlStatement += 1 + ");";
+                    else
+                        sqlStatement += 0 + ");";
+                    statement.executeUpdate(sqlStatement);
+                    return 1;
+                }
+            }
+            else
+                return 0;
+        }
+        catch (Exception e) {
+            System.out.println(e);
+            return 0;
+        }
+        return 1;
+    }
+    
+    public int addTeamMember(int teamId, int memberId) {
+        try {
+            ResultSet rs = statement.executeQuery("SELECT COUNT([Team].[PersonID]) FROM [Team] WHERE [Team].[PersonID] = " + memberId);
+            rs.next();
+            int count = rs.getInt(1);
+            if(count == 0) {
+                String sqlStatement = "INSERT INTO [Team] VALUES (";
+                sqlStatement += teamId + ", ";
+                sqlStatement += memberId + ", ";
+                sqlStatement += 0 + ");";
+                statement.executeUpdate(sqlStatement);
+                return 1;
+            }
+            else
+                return 0;
+        }
+        catch(Exception e) {
+            System.out.println(e);
+            return 0;
+        }
+    }
+    
+    public int removeTeamMember(int teamId, int memberId) {
+        try {
+            ResultSet rs = statement.executeQuery("SELECT COUNT([Team].[PersonID]) FROM [Team] WHERE [Team].[PersonID] = " + memberId);
+            rs.next();
+            int count = rs.getInt(1);
+            if(count != 0) {
+                String sqlStatement = "DELETE FROM [Team] WHERE [PersonID] = " + memberId;
+                statement.executeUpdate(sqlStatement);
+                return 1;
+            }
+            else
+                return 0;
+        }
+        catch(Exception e) {
+            System.out.println(e);
+            return 0;
+        }
+    }
+    
+    public int updateTeamMember(int teamId, int oldMemberId, int newMemberId) {
+        try {
+            ResultSet rs = statement.executeQuery("SELECT COUNT([Team].[PersonID]) FROM [Team] WHERE [Team].[PersonID] = " + oldMemberId);
+            rs.next();
+            int count = rs.getInt(1);
+            if(count != 0) {
+                String sqlStatement = "UPDATE [Team] SET [PersonID] = " + newMemberId + " WHERE [PersonID] = " + oldMemberId;
+                statement.executeUpdate(sqlStatement);
+                return 1;
+            }
+            else
+                return 0;
+        }
+        catch(Exception e) {
+            System.out.println(e);
+            return 0;
+        }
+    }
+    
+    public int addDonor(int donorID, int donationID, int pledgeID, String pledgeDescription) {
+        try {
+            ResultSet rs = statement.executeQuery("SELECT COUNT([Donor].[PersonID]) FROM [Donor] WHERE [Donor].[PersonID] = " + donorID);
+            rs.next();
+            int count = rs.getInt(1);
+            if(count != 0) {
+                String sqlStatement = "INSERT INTO [Donor] VALUES (" + donorID + ", " + donationID + ", " + pledgeID + ");";
+                statement.executeUpdate(sqlStatement);
+                
+                String sqlStatement2 = "INSERT INTO [Pledge] VALUES (" + pledgeID + ", " + pledgeDescription + ");";
+                statement.executeUpdate(sqlStatement2);
+                return 1;
+            }
+            else
+                return 0;
+        }
+        catch(Exception e) {
+            System.out.println(e);
+            return 0;
+        }
+    }
+    
     public int checkname(String name) {
         int q = 0;
         try {
@@ -104,7 +219,7 @@ public class DbConnectivity {
                 budget = rs.getInt(4);
             }
             Volunteer v = getManager(managername);
-            p = new Project(name, v, desc, budget);
+            //      p = new Project(name, v, desc, budget);
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -172,7 +287,7 @@ public class DbConnectivity {
                 budget = rs.getInt(4);
             }
             Volunteer manager = getManager(managername);
-            p = new Project(name, manager, desc, budget);
+            //    p = new Project(name, manager, desc, budget);
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -191,7 +306,7 @@ public class DbConnectivity {
                 mAddress = rs.getString(3);
                 mPhone = rs.getString(4);
                 mDateOfBirth = rs.getString(5);
-                mVolunteer = new Volunteer(true, mName, mCnic, mAddress, mPhone, mDateOfBirth);
+                //mVolunteer = new Volunteer(true, mName, mCnic, mAddress, mPhone, mDateOfBirth);
             }
             // x = rs.getInt(6);
             // if(x == 1)

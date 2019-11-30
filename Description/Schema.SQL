@@ -24,33 +24,40 @@ CREATE TABLE [Person] (
 );
 
 CREATE TABLE [Donor] (
-	[ID] INT,
+	[PersonID] INT,
 	[DonationID] INT,
-	[PledgeID] INT,
-	[PersonID] INT
+	[PledgeID] INT
 );
 
 CREATE TABLE [Donation] (
 	[ID] INT,
 	[DonorID] VARCHAR(MAX),
 	[FundID] VARCHAR(MAX),
+	[SubjectID] INT,
 	[Description] VARCHAR(MAX)
 );
 
 CREATE TABLE [Fund] (
 	[ID] INT,
+	[Name] VARCHAR(MAX),
 	[ProjectID] INT,
 	[DonationID] INT
 );
 
 CREATE TABLE [Team] (
 	[ID] INT,
-	[PersonID] INT
+	[PersonID] INT,
+	[TeamLeadFlag] INT
 );
 
 CREATE TABLE [Subject] (
 	[PersonID] INT,
 	[Income] INT
+);
+
+CREATE TABLE [Pledge] (
+	[ID] INT,
+	[Description] VARCHAR(MAX)
 );
 
 --DROP TABLE [Project];
@@ -60,3 +67,13 @@ CREATE TABLE [Subject] (
 --DROP TABLE [Fund];
 --DROP TABLE [Team];
 --DROP TABLE [Subject];
+--DROP TABLE [Pledge];
+
+SELECT * FROM [Project];
+SELECT * FROM [Person];
+SELECT * FROM [Donor];
+SELECT * FROM [Donation];
+SELECT * FROM [Fund];
+SELECT * FROM [Team];
+SELECT * FROM [Subject];
+SELECT * FROM [Pledge];
