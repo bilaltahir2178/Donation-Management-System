@@ -5,6 +5,7 @@
  */
 package newpackage;
 
+import funds.Funds;
 import java.util.ArrayList;
 import people.Donor;
 import people.Subject;
@@ -23,16 +24,31 @@ public class BusinessLogic {
         myDb = new DbConnectivity();
     }
 
+    public int addProject(Project p) {
+        return myDb.addProject(p);
+    }
+    
     public int allocateTeam(String name) {
         return 0;
     }
-
+    
+    public void addMember(){
+    }
+    public void removeMember(){
+    }
+    public void replaceMember(){
+    }
+    
+    public int addDonor(Donor d) {
+        return myDb.addDonor(d);
+    }
+    
+    public void addFunds(Funds funds){
+        
+    }
+    
     public ArrayList<String> getProjectNames() {
         return (myDb.getProjectNames());
-    }
-
-    public int addProject(Project p) {
-        return myDb.addProject(p);
     }
 
     public int checkPName(String N) {
@@ -41,10 +57,6 @@ public class BusinessLogic {
 
     public Project getProject(String n) {
         return myDb.getProject(n);
-    }
-
-    public int addDonor(Donor d) {
-        return myDb.addDonor(d);
     }
 
     public int addSubject(Subject b) {

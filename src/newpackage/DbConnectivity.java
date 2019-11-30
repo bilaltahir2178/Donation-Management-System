@@ -20,7 +20,7 @@ public class DbConnectivity {
     public DbConnectivity() //Constructor
     {
         try {
-            String s = "jdbc:sqlserver://localhost:1433;databaseName=donations";
+            String s = "jdbc:sqlserver://localhost:1433;databaseName=donation";
             connection = DriverManager.getConnection(s, "sa", "12345678");
 
             statement = connection.createStatement();
@@ -33,7 +33,7 @@ public class DbConnectivity {
     public ArrayList<String> getProjectNames() {
         ArrayList<String> names = new ArrayList<>();
         try {
-            ResultSet rs = statement.executeQuery("select nam from project");
+            ResultSet rs = statement.executeQuery("SELECT name from Project");
             while (rs.next()) {
                 names.add(rs.getString(1));
             }
@@ -42,6 +42,26 @@ public class DbConnectivity {
             // names = null;
         }
         return names;
+    }
+    
+        public int addProject(Project p) {
+        int xx = 0;
+        try {
+            xx = checkname(p.name);
+            if (xx == 0) {
+                updatevolunteer(p.manager.mName);
+                CallableStatement Stmt = connection.prepareCall("{call addProject(?,?,?,?)}");
+                Stmt.setString(1, p.name);
+                Stmt.setString(2, p.description);
+                Stmt.setString(3, p.manager.mName);
+                Stmt.setInt(4, p.budget);
+                Stmt.executeUpdate();
+                Stmt.close();
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return xx;
     }
 
     public int checkname(String name) {
@@ -71,7 +91,6 @@ public class DbConnectivity {
     }
 
     //getProjectByMN------------------------------------------------------------
-
     public Project getProjectByMN(String n) {
         Project p = null;
         int budget = 0, xx = 0;
@@ -102,26 +121,6 @@ public class DbConnectivity {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-    }
-
-    public int addProject(Project p) {
-        int xx = 0;
-        try {
-            xx = checkname(p.name);
-            if (xx == 0) {
-                updatevolunteer(p.manager.mName);
-                CallableStatement Stmt = connection.prepareCall("{call addProject(?,?,?,?)}");
-                Stmt.setString(1, p.name);
-                Stmt.setString(2, p.description);
-                Stmt.setString(3, p.manager.mName);
-                Stmt.setInt(4, p.budget);
-                Stmt.executeUpdate();
-                Stmt.close();
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return xx;
     }
 
     public int addDonor(Donor d) {
@@ -182,7 +181,7 @@ public class DbConnectivity {
 
     public Volunteer getManager(String name) {
         Volunteer mVolunteer = null;
-        String mName = null, mCnic=null, mAddress=null, mPhone=null, mDateOfBirth=null;
+        String mName = null, mCnic = null, mAddress = null, mPhone = null, mDateOfBirth = null;
         int x = 0;
         try {
             ResultSet rs = statement.executeQuery("select * from volunteer where nam like '" + name + "'");
@@ -194,7 +193,7 @@ public class DbConnectivity {
                 mDateOfBirth = rs.getString(5);
                 mVolunteer = new Volunteer(true, mName, mCnic, mAddress, mPhone, mDateOfBirth);
             }
-           // x = rs.getInt(6);
+            // x = rs.getInt(6);
             // if(x == 1)
             // else
             // v = new Volunteer(false,n,cnic,address,phone,dob);

@@ -2,7 +2,7 @@ package people;
 
 public class Founder extends Person {
 
-    public Founder(String name, String cnic, String address, String phone, String dateOfBirth) {
-        super(name, cnic, address, phone, dateOfBirth);
+    public Founder(int id, String name, String cnic, String address, String phone, String dateOfBirth) {
+        super(id, name, cnic, address, phone, dateOfBirth);
     }
 }

@@ -16,8 +16,8 @@ public class Volunteer extends Person {
         return mMilliSeconds;
     }
 
-    public Volunteer(boolean availibility, String name, String cnic, String address, String phone, String dateOfBirth) {
-        super(name, cnic, address, phone, dateOfBirth);
+    public Volunteer(boolean availibility,int id, String name, String cnic, String address, String phone, String dateOfBirth) {
+        super(id, name, cnic, address, phone, dateOfBirth);
         this.mAvailability = availibility;
     }
 
