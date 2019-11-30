@@ -6,6 +6,7 @@ CREATE DATABASE [Donation];
 USE [Donation];
 
 CREATE TABLE [Project] (
+	[ID] INT,
 	[Name] VARCHAR(MAX),
 	[Description] VARCHAR(MAX),
 	[Manager] INT,
