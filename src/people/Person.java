@@ -2,47 +2,17 @@ package people;
 
 public class Person {
 
-    protected String mName;
-    protected int mAge;
-    protected String mCnic;
-    protected String mAddress;
+    public String mName;
+    public String mCnic;
+    public String mPhone;
+    public String mAddress;
+    public String mDateOfBirth;
 
-    public Person(String name, int age, String cnic, String address) {
+    public Person(String name, String cnic, String address, String phone, String dateOfBirth) {
         this.mName = name;
-        this.mAge = age;
         this.mCnic = cnic;
         this.mAddress = address;
-    }
-
-    public void setName(String name) {
-        this.mName = name;
-    }
-
-    public String getName() {
-        return mName;
-    }
-
-    public int getAge() {
-        return mAge;
-    }
-
-    public void setAge(int age) {
-        this.mAge = age;
-    }
-
-    public String getCnic() {
-        return mCnic;
-    }
-
-    public void setCnic(String cnic) {
-        this.mCnic = cnic;
-    }
-
-    public String getAddress() {
-        return mAddress;
-    }
-
-    public void setAddress(String address) {
-        this.mAddress = address;
+        this.mPhone = phone;
+        this.mDateOfBirth = dateOfBirth;
     }
 }
