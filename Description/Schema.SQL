@@ -9,7 +9,7 @@ CREATE TABLE [Project] (
 	[ID] INT,
 	[Name] VARCHAR(MAX),
 	[Description] VARCHAR(MAX),
-	[Manager] INT,
+	[ManagerID] INT,
 	[Budget] INT,
 	[TeamID] INT
 );
