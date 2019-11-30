@@ -21,7 +21,7 @@ public class DbConnectivity {
     {
         try {
             String s = "jdbc:sqlserver://localhost:1433;databaseName=donations";
-            connection = DriverManager.getConnection(s, "root", "12345678");
+            connection = DriverManager.getConnection(s, "sa", "12345678");
 
             statement = connection.createStatement();
 
