@@ -5,6 +5,9 @@
  */
 package userinterface;
 
+import java.awt.Dimension;
+import java.awt.Toolkit;
+
 /**
  *
  * @author bilal
@@ -16,6 +19,8 @@ public class Home extends javax.swing.JFrame {
      */
     public Home() {
         initComponents();
+        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+        this.setPreferredSize(screenSize);
     }
 
     /**
@@ -43,6 +48,7 @@ public class Home extends javax.swing.JFrame {
         searchDonor = new javax.swing.JButton();
         donationsList = new javax.swing.JButton();
         jSeparator1 = new javax.swing.JSeparator();
+        jButton1 = new javax.swing.JButton();
 
         javax.swing.GroupLayout jFrame1Layout = new javax.swing.GroupLayout(jFrame1.getContentPane());
         jFrame1.getContentPane().setLayout(jFrame1Layout);
@@ -104,6 +110,13 @@ public class Home extends javax.swing.JFrame {
 
         donationsList.setText("Donations List");
 
+        jButton1.setText("Allocate Team");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -132,7 +145,9 @@ public class Home extends javax.swing.JFrame {
                                             .addComponent(searchProject, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                             .addComponent(searchDonor, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                             .addComponent(searchSubject, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 135, Short.MAX_VALUE)))
-                                    .addComponent(donationsList, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                        .addComponent(jButton1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(donationsList, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 135, Short.MAX_VALUE))))
                             .addComponent(jSeparator1))
                         .addGap(547, 547, 547))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
@@ -173,7 +188,9 @@ public class Home extends javax.swing.JFrame {
                     .addComponent(addVolunteer)
                     .addComponent(donationsList))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(addDonation)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(addDonation)
+                    .addComponent(jButton1))
                 .addGap(232, 232, 232))
         );
 
@@ -191,6 +208,10 @@ public class Home extends javax.swing.JFrame {
     private void donorsListActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_donorsListActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_donorsListActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -236,6 +257,7 @@ public class Home extends javax.swing.JFrame {
     private javax.swing.JButton donationsList;
     private javax.swing.JButton donorsList;
     private javax.swing.Box.Filler filler1;
+    private javax.swing.JButton jButton1;
     private javax.swing.JFrame jFrame1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JSeparator jSeparator1;
