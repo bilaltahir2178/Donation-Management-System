@@ -3,9 +3,9 @@ package newpackage;
 import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.Statement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 import people.Donor;
@@ -21,10 +21,14 @@ public class DbConnectivity {
     public DbConnectivity() //Constructor
     {
         try {
-            String s = "jdbc:sqlserver://localhost:1433;databaseName=donation";
+            String s = "jdbc:sqlserver://localhost:1433;databaseName=Donation";
             connection = DriverManager.getConnection(s, "sa", "12345678");
 
             statement = connection.createStatement();
+//             String s = "jdbc:sqlserver://localhost:1433;databaseName=donations";
+//             connection = DriverManager.getConnection(s,"sa","12345678");
+//
+//            statement = connection.createStatement(); 
 
         } catch (Exception e) {
             System.out.println(e);
@@ -84,17 +88,15 @@ public class DbConnectivity {
                     else
                         sqlStatement += 0 + ");";
                     statement.executeUpdate(sqlStatement);
-                    return 1;
                 }
+                return 1;
             }
-            else
-                return 0;
+            return 0;
         }
         catch (Exception e) {
             System.out.println(e);
             return 0;
         }
-        return 1;
     }
     
     public int addTeamMember(int teamId, int memberId) {

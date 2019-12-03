@@ -60,6 +60,11 @@ CREATE TABLE [Pledge] (
 	[Description] VARCHAR(MAX)
 );
 
+CREATE TABLE [Applicant] (
+	[PersonID] INT,
+	[Income] INT
+);
+
 --DROP TABLE [Project];
 --DROP TABLE [Person];
 --DROP TABLE [Donor];
@@ -68,6 +73,7 @@ CREATE TABLE [Pledge] (
 --DROP TABLE [Team];
 --DROP TABLE [Subject];
 --DROP TABLE [Pledge];
+--DROP TABLE [Applicant];
 
 SELECT * FROM [Project];
 SELECT * FROM [Person];
@@ -77,3 +83,4 @@ SELECT * FROM [Fund];
 SELECT * FROM [Team];
 SELECT * FROM [Subject];
 SELECT * FROM [Pledge];
+SELECT * FROM [Applicant];
